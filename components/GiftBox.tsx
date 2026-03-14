@@ -64,8 +64,8 @@ export default function GiftBox() {
                             transition={{ delay: 0.3 }}
                             className="bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-pink-200 text-center w-full"
                         >
-                            <p className="text-pink-600 font-medium text-lg leading-relaxed">
-                                "Kehadiranmu itu seperti notifikasi yang tiba-tiba muncul dan bikin orang tersenyum. Love you! ❤️"
+                            <p className="text-pink-600 font-medium text-lg leading-relaxed italic">
+                                “Nadhif bersyukur dari banyaknya orang di dunia, Nadhif dipertemukan dengan kamu. Semoga kita bisa terus saling menemani. Love you more than words can say ❤️❤️❤️"
                             </p>
                         </motion.div>
                     </motion.div>
