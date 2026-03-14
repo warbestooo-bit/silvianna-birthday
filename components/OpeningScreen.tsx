@@ -36,7 +36,7 @@ export default function OpeningScreen({ onOpen }: { onOpen: () => void }) {
                     <Mail size={28} />
                     <span className="absolute -top-1 -right-1 text-red-500 text-sm">❤</span>
                 </div>
-                Open the Surprise ❤️
+                Tap to open your present! 🎁
             </motion.button>
         </motion.div>
     );

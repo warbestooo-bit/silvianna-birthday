@@ -6,6 +6,7 @@ import { Heart, PauseCircle, PlayCircle } from "lucide-react";
 import confetti from "canvas-confetti";
 
 import OpeningScreen from "@/components/OpeningScreen";
+import LetterExperience from "@/components/LetterExperience";
 
 import GiftBox from "@/components/GiftBox";
 import BirthdayCard from "@/components/BirthdayCard";
@@ -13,10 +14,9 @@ import PhotoGallery from "@/components/PhotoGallery";
 
 export default function Home() {
     const [hasOpenedSurprise, setHasOpenedSurprise] = useState(false);
+    const [isShowingLetter, setIsShowingLetter] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
-
-
 
     useEffect(() => {
         // Load custom music from public/music.mp3
@@ -31,12 +31,17 @@ export default function Home() {
     }, []);
 
     const handleOpenSurprise = () => {
-        setHasOpenedSurprise(true);
+        setIsShowingLetter(true);
         // Play music when opening the surprise
         if (audioRef.current) {
             audioRef.current.play().catch(e => console.log("Audio play prevented:", e));
             setIsPlaying(true);
         }
+    };
+
+    const handleFinishLetter = () => {
+        setIsShowingLetter(false);
+        setHasOpenedSurprise(true);
 
         // Initial Confetti on main screen after opening
         setTimeout(() => {
@@ -64,8 +69,10 @@ export default function Home() {
         <main className="min-h-screen relative overflow-hidden bg-gradient-to-br from-pink-100 via-pink-50 to-purple-100 text-pink-950 font-sans selection:bg-pink-300">
 
             <AnimatePresence mode="wait">
-                {!hasOpenedSurprise ? (
+                {!hasOpenedSurprise && !isShowingLetter ? (
                     <OpeningScreen key="opening" onOpen={handleOpenSurprise} />
+                ) : isShowingLetter ? (
+                    <LetterExperience key="letter" onFinish={handleFinishLetter} />
                 ) : (
                     <motion.div
                         key="main"
