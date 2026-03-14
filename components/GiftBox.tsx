@@ -3,9 +3,11 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
 import { Heart } from "lucide-react";
+import LetterExperience from "./LetterExperience";
 
 export default function GiftBox() {
     const [isOpen, setIsOpen] = useState(false);
+    const [showLetter, setShowLetter] = useState(false);
     const [showFloatingHearts, setShowFloatingHearts] = useState(false);
 
     const openGift = () => {
@@ -23,10 +25,19 @@ export default function GiftBox() {
         // Show floating hearts
         setShowFloatingHearts(true);
         setTimeout(() => setShowFloatingHearts(false), 3000);
+
+        // Show the romantic letter slides
+        setTimeout(() => setShowLetter(true), 1500);
     };
 
     return (
         <div className="relative flex flex-col items-center my-10 min-h-[250px] w-full max-w-md mx-auto">
+            <AnimatePresence>
+                {showLetter && (
+                    <LetterExperience onFinish={() => setShowLetter(false)} />
+                )}
+            </AnimatePresence>
+
             <AnimatePresence mode="wait">
                 {!isOpen ? (
                     <motion.div
