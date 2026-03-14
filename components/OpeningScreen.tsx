@@ -44,24 +44,36 @@ export default function OpeningScreen({ onOpen }: { onOpen: () => void }) {
                     );
                 })}
 
-                {/* Mobile version: Fewer photos but same vibe */}
-                {welcomePhotos.slice(0, 8).map((src, index) => (
-                    <motion.div
-                        key={`mb-${index}`}
-                        className="absolute bg-white p-1 pb-3 shadow-sm rounded-sm md:hidden"
-                        style={{
-                            width: "80px",
-                            left: `${Math.random() * 80}%`,
-                            top: `${Math.random() * 90}%`,
-                            rotate: `${Math.random() * 30 - 15}deg`,
-                        }}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.2 * index }}
-                    >
-                        <img src={src} alt="Memory" className="w-full h-16 object-cover" />
-                    </motion.div>
-                ))}
+                {/* Mobile version: More structured scattered layout to avoid messy overlaps */}
+                {welcomePhotos.slice(0, 10).map((src, index) => {
+                    // controlled scattering for mobile
+                    const columns = 2;
+                    const col = index % columns;
+                    const row = Math.floor(index / columns);
+
+                    // Positions based on grid but with slight offsets for "scrapbook" feel
+                    const left = col === 0 ? (5 + Math.random() * 5) : (65 + Math.random() * 5);
+                    const top = (row * 18) + (Math.random() * 5);
+                    const rotate = index % 2 === 0 ? -10 + Math.random() * 5 : 10 - Math.random() * 5;
+
+                    return (
+                        <motion.div
+                            key={`mb-${index}`}
+                            className="absolute bg-white p-1 pb-3 shadow-md rounded-sm border border-pink-50 md:hidden"
+                            style={{
+                                width: "85px",
+                                left: `${left}%`,
+                                top: `${top}%`,
+                                rotate: `${rotate}deg`,
+                            }}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.15 * index }}
+                        >
+                            <img src={src} alt="Memory" className="w-full h-16 object-cover rounded-tiny" />
+                        </motion.div>
+                    );
+                })}
             </div>
 
             {/* Main Content */}
